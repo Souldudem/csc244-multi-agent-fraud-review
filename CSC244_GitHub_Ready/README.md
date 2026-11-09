@@ -16,7 +16,7 @@ Open **http://127.0.0.1:8501**. Stop with Ctrl+C. If `py` is unavailable, use `p
 
 The first launch automatically creates a fresh ignored `dashboard_demo.sqlite`, populates six synthetic transactions, runs four independent reviewers for each transaction, and saves audit records. The file remains local and is not committed. Do not push real accounting or employee data.
 
-## Demo script (both teammates)
+## Demo script 
 1. Open the dashboard. Show counters: 6 transactions, 3 high, 2 medium and 1 low in the baseline dataset.
 2. Choose **F-001** to inspect a high-value unauthorized scenario.
 3. Choose **S-001** to show a $4,800 purchase paired with S-002 ($4,700), total **$9,500**, flagged by database aggregation.
