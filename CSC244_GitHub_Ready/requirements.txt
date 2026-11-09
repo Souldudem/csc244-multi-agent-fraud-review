@@ -1,0 +1,2 @@
+# No third-party Python dependencies are needed to run this Phase 2 demo.
+# Requires Python 3.9+ with standard library including sqlite3.

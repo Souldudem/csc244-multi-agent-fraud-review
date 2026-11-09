@@ -1,0 +1,90 @@
+CSC 244 — SQL Database Evidence | Synthetic demonstration
+Database: csc244_synthetic_evidence.sqlite
+
+======================================================================================
+1 / RELATIONAL JOIN: transaction + employee + vendor
+======================================================================================
+SELECT t.id AS case_id, e.department, v.name AS vendor, t.amount,
+       t.receipt_present AS receipt, t.manager_approved AS manager_ok
+FROM transactions t
+JOIN employees e ON e.id=t.employee_id
+JOIN vendors v ON v.id=t.vendor_id
+ORDER BY t.id;
+case_id | department | vendor               | amount  | receipt | manager_ok
+--------+------------+----------------------+---------+---------+-----------
+F-001   | IT         | Brand New Vendor LLC | 12000.0 | 0       | 0         
+L-001   | Operations | Office Supply Co     | 850.0   | 1       | 1         
+M-001   | Operations | Office Supply Co     | 2450.0  | 0       | 1         
+S-001   | Operations | Office Supply Co     | 4800.0  | 1       | 1         
+S-002   | Operations | Office Supply Co     | 4700.0  | 1       | 1         
+V-001   | IT         | Brand New Vendor LLC | 1750.0  | 1       | 1         
+6 row(s) returned
+
+
+======================================================================================
+2 / SPLIT-PURCHASE AGGREGATION (GROUP BY and HAVING)
+======================================================================================
+SELECT split_group, COUNT(*) AS purchase_count,
+       ROUND(SUM(amount),2) AS combined_amount
+FROM transactions
+WHERE split_group IS NOT NULL
+GROUP BY split_group
+HAVING COUNT(*) > 1 AND SUM(amount) > 5000;
+split_group | purchase_count | combined_amount
+------------+----------------+----------------
+G-001       | 2              | 9500.0         
+1 row(s) returned
+
+
+======================================================================================
+3 / MOST RECENT RISK DECISIONS (correlated subquery)
+======================================================================================
+SELECT c.transaction_id, c.final_risk, c.agreement,
+       c.recommendation
+FROM consensus c
+WHERE c.rowid = (
+  SELECT MAX(other.rowid) FROM consensus other
+  WHERE other.transaction_id = c.transaction_id
+)
+ORDER BY c.transaction_id;
+transaction_id | final_risk | agreement | recommendation            
+---------------+------------+-----------+---------------------------
+F-001          | HIGH       | 1.0       | Priority accountant review
+L-001          | LOW        | 1.0       | Record and monitor        
+M-001          | MEDIUM     | 0.75      | Standard accountant review
+S-001          | HIGH       | 0.75      | Priority accountant review
+S-002          | HIGH       | 0.75      | Priority accountant review
+V-001          | MEDIUM     | 0.5       | Standard accountant review
+6 row(s) returned
+
+
+======================================================================================
+4 / F-001 AUDIT: individual agent votes + evidence reference
+======================================================================================
+SELECT a.role, a.risk, a.support_score,
+       SUBSTR(a.evidence_json,1,58) AS evidence_excerpt
+FROM agent_assessments a
+JOIN consensus c ON c.run_id=a.run_id
+WHERE c.transaction_id='F-001'
+  AND c.rowid=(SELECT MAX(rowid) FROM consensus WHERE transaction_id='F-001')
+ORDER BY a.id;
+role           | risk | support_score | evidence_excerpt               
+---------------+------+---------------+--------------------------------
+Employee       | HIGH | 0.91          | ["TX:F-001:missing_receipt", "T
+Manager        | HIGH | 0.91          | ["TX:F-001:manager_approval", "
+CFO            | HIGH | 0.95          | ["TX:F-001:cfo_approval", "TX:F
+Fraud Analysis | HIGH | 0.91          | ["VENDOR:2:new_vendor", "TX:F-0
+4 row(s) returned
+
+
+======================================================================================
+5 / HUMAN ACCOUNTANT DISPOSITIONS
+======================================================================================
+SELECT c.transaction_id, r.decision, r.reviewer_notes
+FROM accountant_reviews r JOIN consensus c ON c.run_id=r.run_id
+ORDER BY r.id DESC LIMIT 5;
+transaction_id | decision              | reviewer_notes                 
+---------------+-----------------------+--------------------------------
+F-001          | REQUEST_MORE_EVIDENCE | Synthetic demo evidence - pleas
+1 row(s) returned
+

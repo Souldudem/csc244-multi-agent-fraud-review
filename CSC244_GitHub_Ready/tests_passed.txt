@@ -1,0 +1,15 @@
+test_audit_writes (test_prototype.PrototypeTests.test_audit_writes) ... ok
+test_blatant_controls_high (test_prototype.PrototypeTests.test_blatant_controls_high) ... ok
+test_missing_receipt_review (test_prototype.PrototypeTests.test_missing_receipt_review) ... ok
+test_normal_case_low (test_prototype.PrototypeTests.test_normal_case_low) ... ok
+test_split_purchases_high (test_prototype.PrototypeTests.test_split_purchases_high) ... ok
+test_human_decision_is_persisted (test_app.DashboardTests.test_human_decision_is_persisted) ... ok
+test_invalid_case_and_decision_rejected (test_app.DashboardTests.test_invalid_case_and_decision_rejected) ... ok
+test_review_run_is_saved (test_app.DashboardTests.test_review_run_is_saved) ... ok
+test_selected_record_is_from_database (test_app.DashboardTests.test_selected_record_is_from_database) ... ok
+test_starts_with_reviewed_transactions (test_app.DashboardTests.test_starts_with_reviewed_transactions) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.127s
+
+OK

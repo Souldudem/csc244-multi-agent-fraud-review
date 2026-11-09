@@ -1,0 +1,28 @@
+UTC: 2026-11-09T22:27:58+00:00
+Python: 3.13.5
+OS: Linux-6.18.57-x86_64-with-glibc2.41
+Command: python -m unittest discover -p test_*.py -v
+
+test_human_decision_is_persisted (test_app.DashboardTests.test_human_decision_is_persisted) ... ok
+test_invalid_case_and_decision_rejected (test_app.DashboardTests.test_invalid_case_and_decision_rejected) ... ok
+test_review_run_is_saved (test_app.DashboardTests.test_review_run_is_saved) ... ok
+test_selected_record_is_from_database (test_app.DashboardTests.test_selected_record_is_from_database) ... ok
+test_starts_with_reviewed_transactions (test_app.DashboardTests.test_starts_with_reviewed_transactions) ... ok
+test_01_dashboard_get_exposes_review_data (test_http_api.HttpApiTests.test_01_dashboard_get_exposes_review_data) ... ok
+test_02_static_frontend_is_served (test_http_api.HttpApiTests.test_02_static_frontend_is_served) ... ok
+test_03_review_post_adds_persistent_run (test_http_api.HttpApiTests.test_03_review_post_adds_persistent_run) ... ok
+test_04_accountant_disposition_persists_over_http (test_http_api.HttpApiTests.test_04_accountant_disposition_persists_over_http) ... ok
+test_05_invalid_request_is_rejected (test_http_api.HttpApiTests.test_05_invalid_request_is_rejected) ... 127.0.0.1 - - [09/Nov/2026 22:27:57] "POST /api/review HTTP/1.1" 400 -
+ok
+test_audit_writes (test_prototype.PrototypeTests.test_audit_writes) ... ok
+test_blatant_controls_high (test_prototype.PrototypeTests.test_blatant_controls_high) ... ok
+test_missing_receipt_review (test_prototype.PrototypeTests.test_missing_receipt_review) ... ok
+test_normal_case_low (test_prototype.PrototypeTests.test_normal_case_low) ... ok
+test_split_purchases_high (test_prototype.PrototypeTests.test_split_purchases_high) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.688s
+
+OK
+
+Exit code: 0

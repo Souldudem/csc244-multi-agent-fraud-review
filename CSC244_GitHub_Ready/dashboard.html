@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSC 244 | Multi-Agent Financial Risk Review</title>
+<link rel="stylesheet" href="/dashboard.css">
+<script src="/dashboard.js" defer></script>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brandmark">◎</div><div><b>FIN<span>GUARD</span></b><small>CSC 244 · DATABASE SYSTEM DESIGN</small></div></div>
+    <div class="sidebar-group-title">WORKSPACE</div>
+    <div class="nav-selected">◫ &nbsp; Review dashboard</div>
+    <div class="nav-muted">⛁ &nbsp; Transaction database</div>
+    <div class="nav-muted">◷ &nbsp; Audit history</div>
+    <div class="nav-divider"></div>
+    <div class="sidebar-group-title">SYNTHETIC CASES <span id="sidebar-count"></span></div>
+    <div id="case-list" class="case-list"><p class="muted">Loading transactions…</p></div>
+    <div class="sidebar-footer"><span class="dot"></span> LOCAL DEMONSTRATION<br><small>Rule-based agents · SQLite audit trail</small></div>
+  </aside>
+  <main class="main">
+    <div class="topbar"><div><span class="breadcrumb">COURSE PROJECT</span><span class="separator">/</span><span>PHASE 2 IMPLEMENTATION</span></div><span class="topbar-date">FALL 2026</span></div>
+    <div class="main-content">
+      <div class="heading-row"><div><div class="eyebrow">LIVE, RUNNABLE PROOF OF CONCEPT</div><h1>Financial Risk Review</h1><p class="sub">Collaborative transaction screening with role-specific reasoning and auditable consensus.</p></div><div class="phase-tag">PHASE 2 <span>●</span> DEMO</div></div>
+      <div class="caution"><strong>SIMULATION ONLY</strong><span>This interface uses synthetic records and <b>deterministic rule-based reviewers</b>; it does not use LLMs or make findings of fraud. A human accountant retains final authority.</span></div>
+      <section class="metrics" id="metrics"><div class="metric skeleton">Loading results…</div></section>
+      <div class="two-col">
+        <section class="panel case-panel">
+          <div class="panel-heading"><div><div class="section-kicker">01 / TRANSACTION REVIEW</div><h2>Selected transaction <span id="tx-id" class="mono"></span></h2></div><button id="rerun-btn" class="primary-btn">↻ &nbsp; Run agent review</button></div>
+          <div id="transaction-detail" class="tx-detail"><p class="muted">Loading case…</p></div>
+          <div class="data-title">Automated review signals</div><div id="signals" class="signals"></div>
+        </section>
+        <section class="panel result-panel">
+          <div class="panel-heading"><div><div class="section-kicker">02 / COORDINATOR AGENT</div><h2>Consensus decision</h2></div><span class="chip">4 VOTING AGENTS</span></div>
+          <div id="consensus-detail" class="consensus-main"><p class="muted">Loading consensus…</p></div>
+        </section>
+      </div>
+      <section class="panel agent-section"><div class="panel-heading"><div><div class="section-kicker">03 / INDEPENDENT REVIEWERS</div><h2>Agent assessments <span class="header-sub">Each role reviews the same transaction</span></h2></div><span class="chip">EVIDENCE-BASED</span></div><div id="agent-grid" class="agent-grid"></div></section>
+      <div class="bottom-grid">
+        <section class="panel audit-panel"><div class="panel-heading"><div><div class="section-kicker">04 / DATABASE AUDIT</div><h2>Stored agent discussion</h2></div><span class="chip">SQLITE · PERSISTED</span></div><div id="audit-log" class="audit-log"></div></section>
+        <section class="panel reviewer-panel"><div class="panel-heading"><div><div class="section-kicker">05 / HUMAN OVERSIGHT</div><h2>Accountant disposition</h2></div></div>
+          <p class="muted review-intro">Record a human outcome; it is saved to the relational <code>accountant_reviews</code> table, not treated as verified fraud.</p>
+          <form id="review-form"><label for="human-decision">Decision</label><select id="human-decision"><option value="REQUEST_MORE_EVIDENCE">Request additional evidence</option><option value="INVESTIGATE">Escalate for investigation</option><option value="CLOSE_AS_EXPLAINED">Close as explained</option></select><label for="human-notes">Reviewer notes</label><textarea id="human-notes" rows="3" maxlength="1000" placeholder="Example: Request invoice and approval history…"></textarea><button class="primary-btn wide" type="submit">Save accountant decision</button></form><div id="saved-review"></div>
+        </section>
+      </div>
+      <div class="footer-line">CSC 244 · Role-Based Multi-Agent Financial Risk Detection <span>LOCAL PROTOTYPE · NO EXTERNAL DATA</span></div>
+    </div>
+  </main>
+</div>
+<div id="toast" aria-live="polite" role="status"></div>
+</body>
+</html>
